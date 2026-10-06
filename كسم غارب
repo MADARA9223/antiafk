@@ -1,0 +1,77 @@
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local VirtualUser = game:GetService("VirtualUser")
+
+local LocalPlayer = Players.LocalPlayer
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "AntiAfkUI"
+ScreenGui.Parent = (gethui and gethui()) or CoreGui or LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.5, -110, 0.4, 0)
+MainFrame.Size = UDim2.new(0, 220, 0, 85)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = MainFrame
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Parent = MainFrame
+UIStroke.Color = Color3.fromRGB(200, 0, 0)
+UIStroke.Thickness = 1.5
+
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.Size = UDim2.new(1, 0, 0, 24)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Antiafk Gui"
+Title.TextColor3 = Color3.fromRGB(255, 30, 30)
+Title.TextSize = 18
+
+local Subtitle1 = Instance.new("TextLabel")
+Subtitle1.Name = "Subtitle1"
+Subtitle1.Parent = MainFrame
+Subtitle1.BackgroundTransparency = 1
+Subtitle1.Position = UDim2.new(0, 0, 0, 36)
+Subtitle1.Size = UDim2.new(1, 0, 0, 18)
+Subtitle1.Font = Enum.Font.GothamMedium
+Subtitle1.Text = "كءءسم الطاغية"
+Subtitle1.TextColor3 = Color3.fromRGB(200, 0, 0)
+Subtitle1.TextSize = 11
+
+local Subtitle2 = Instance.new("TextLabel")
+Subtitle2.Name = "Subtitle2"
+Subtitle2.Parent = MainFrame
+Subtitle2.BackgroundTransparency = 1
+Subtitle2.Position = UDim2.new(0, 0, 0, 54)
+Subtitle2.Size = UDim2.new(1, 0, 0, 18)
+Subtitle2.Font = Enum.Font.GothamBold
+Subtitle2.Text = "سكربت علي كءسم غارب"
+Subtitle2.TextColor3 = Color3.fromRGB(200, 0, 0)
+Subtitle2.TextSize = 12
+
+local function PerformAntiAfk()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new(0, 0))
+end
+
+LocalPlayer.Idled:Connect(function()
+    PerformAntiAfk()
+end)
+
+task.spawn(function()
+    while task.wait(900) do
+        PerformAntiAfk()
+    end
+end)
